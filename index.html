@@ -3,61 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOCK BURNER | Institutional Trading Intelligence</title>
+    <title>STOCK BURNER | Elite Institutional Intelligence</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --primary: #00f2ff;
+            --primary-glow: rgba(0, 242, 255, 0.3);
             --secondary: #7000ff;
             --accent: #00ff87;
-            --bg: #010204;
+            --bg: #05070a;
             --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-dim: #94a3b8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: var(--bg);
             color: var(--text-main);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* --- MODERN ANIMATED BACKGROUND --- */
-        .bg-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.15) 0%, transparent 40%);
-        }
-
-        .grid-pattern {
+        /* --- BACKGROUND ELEMENTS --- */
+        .bg-visuals {
             position: fixed;
             inset: 0;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(circle at center, black, transparent 80%);
-            opacity: 0.3;
             z-index: -1;
+            overflow: hidden;
         }
 
-        /* --- HEADER / NAV --- */
-        header {
-            height: 80px;
+        .glow-1 {
+            position: absolute;
+            top: -10%; left: -10%;
+            width: 50%; height: 50%;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.15) 0%, transparent 70%);
+        }
+
+        .glow-2 {
+            position: absolute;
+            bottom: -10%; right: -10%;
+            width: 50%; height: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
+            opacity: 0.2;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            height: 90px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 6%;
-            backdrop-filter: blur(15px);
+            padding: 0 8%;
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -70,266 +83,294 @@
             gap: 12px;
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
+            font-size: 1.4rem;
+            letter-spacing: -1px;
         }
 
-        .logo img { width: 35px; border-radius: 8px; border: 1.5px solid var(--primary); }
+        .logo img { width: 40px; border-radius: 10px; box-shadow: 0 0 20px var(--primary-glow); }
 
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
+        .nav-actions { display: flex; gap: 20px; align-items: center; }
 
-        .btn-nav {
-            background: #fff;
-            color: #000;
-            padding: 10px 22px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-decoration: none;
-            transition: 0.3s;
+        .status-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
         }
 
-        .btn-nav:hover { background: var(--primary); transform: translateY(-2px); }
+        @keyframes pulse {
+            0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
+        }
 
         /* --- HERO SECTION --- */
+        section { padding: 100px 8%; max-width: 1400px; margin: 0 auto; }
+
         .hero {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            min-height: calc(100vh - 80px);
+            grid-template-columns: 1fr 1fr;
             align-items: center;
-            padding: 0 8%;
-            max-width: 1440px;
-            margin: 0 auto;
+            min-height: 80vh;
+            gap: 50px;
         }
 
-        .hero-text { padding-right: 60px; }
-
         .hero-tag {
-            background: linear-gradient(90deg, rgba(0, 242, 255, 0.1), transparent);
-            border-left: 3px solid var(--primary);
-            padding: 8px 16px;
-            font-size: 0.8rem;
-            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 20px;
             color: var(--primary);
-            margin-bottom: 30px;
-            display: inline-block;
         }
 
         h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 5vw, 4.8rem);
-            line-height: 1.05;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
             margin-bottom: 25px;
-            font-weight: 700;
         }
 
         h1 span {
-            background: linear-gradient(to bottom right, #fff 50%, var(--primary));
+            background: linear-gradient(90deg, #fff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-p {
-            font-size: 1.25rem;
+        .hero-desc {
+            font-size: 1.2rem;
             color: var(--text-dim);
-            margin-bottom: 45px;
-            max-width: 550px;
+            margin-bottom: 40px;
+            max-width: 500px;
         }
 
-        /* --- CTA BUTTONS --- */
-        .cta-box { display: flex; gap: 20px; align-items: center; }
-
-        .btn-main {
-            background: var(--primary);
-            color: #000;
-            padding: 20px 40px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: flex;
+        .btn {
+            display: inline-flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 10px 40px rgba(0, 242, 255, 0.3);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 20px 35px;
+            border-radius: 14px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
-        .btn-main:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0, 242, 255, 0.5);
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 15px 30px var(--primary-glow);
         }
 
-        /* --- VISUAL ELEMENTS --- */
-        .hero-visual { position: relative; }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--primary-glow);
+        }
 
-        .dashboard-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+        /* --- MOCKUP CARD --- */
+        .visual-container { position: relative; }
+        
+        .main-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), transparent);
             border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 30px;
-            position: relative;
-            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
             animation: float 6s ease-in-out infinite;
         }
 
+        .main-card img { width: 100%; border-radius: 20px; display: block; }
+
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-
-        .dashboard-card img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-        }
-
-        .signal-pop {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            background: #000;
-            border: 1px solid var(--accent);
-            padding: 15px 25px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.2);
-        }
-
-        .signal-pop span { color: var(--accent); font-weight: 800; display: block; font-size: 1.1rem; }
-        .signal-pop small { color: var(--text-dim); font-size: 0.7rem; text-transform: uppercase; }
 
         /* --- FEATURES GRID --- */
-        .features-section {
-            padding: 100px 8%;
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-family: 'Space Grotesk'; font-size: 2.5rem; margin-bottom: 10px; }
+        .section-title p { color: var(--text-dim); }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 25px;
         }
 
-        .f-card {
-            padding: 40px;
+        .feature-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 28px;
+            padding: 40px;
+            border-radius: 24px;
             transition: 0.3s;
         }
 
-        .f-card:hover {
-            background: rgba(255,255,255,0.06);
+        .feature-card:hover {
             border-color: var(--primary);
+            background: rgba(255,255,255,0.06);
             transform: translateY(-10px);
         }
 
-        .f-card i {
-            width: 50px; height: 50px;
-            background: rgba(0, 242, 255, 0.1);
+        .feature-card i {
+            font-size: 2rem;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .f-card h3 { margin-bottom: 15px; font-size: 1.4rem; }
-        .f-card p { color: var(--text-dim); line-height: 1.6; }
+        /* --- PREMIUM BANNER --- */
+        .premium-box {
+            background: linear-gradient(90deg, #7000ff 0%, #00f2ff 100%);
+            border-radius: 30px;
+            padding: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-box h2 { font-size: 3rem; margin-bottom: 20px; font-family: 'Space Grotesk'; }
+        
+        .btn-white {
+            background: #fff;
+            color: #000;
+            margin-top: 20px;
+        }
 
         /* --- FOOTER --- */
         footer {
-            padding: 60px 8% 40px;
+            padding: 80px 8% 40px;
             border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
         }
 
-        .nexgrow-link { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; }
-        .nexgrow-link strong { color: #fff; }
+        .footer-brand p { color: var(--text-dim); margin-top: 15px; max-width: 300px; }
+        .footer-links h4 { margin-bottom: 20px; color: var(--primary); }
+        .footer-links a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 10px; font-size: 0.9rem; }
 
-        /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 1024px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 60px; }
-            .hero-text { padding-right: 0; margin-bottom: 80px; }
-            .hero-p { margin: 0 auto 40px; }
-            .cta-box { justify-content: center; flex-direction: column; }
-            .features-section { grid-template-columns: 1fr; }
-            footer { flex-direction: column; gap: 30px; }
+        .copyright {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 968px) {
+            .hero, .features-grid, footer { grid-template-columns: 1fr; text-align: center; }
+            .hero-desc { margin: 0 auto 40px; }
+            .nav-actions span { display: none; }
+            section { padding: 60px 5%; }
+            .premium-box { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-    <div class="grid-pattern"></div>
+    <div class="bg-visuals">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+        <div class="grid-overlay"></div>
+    </div>
 
-    <header>
+    <nav>
         <div class="logo">
-            <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Logo">
+            <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Stock Burner">
             STOCK BURNER
         </div>
-        <div class="nav-links">
-            <a href="#">Analysis</a>
-            <a href="#">Premium</a>
-            <a href="https://t.me/+9sTDnUgQ6JlkYmM1" class="btn-nav">Get Started</a>
+        <div class="nav-actions">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-dim);">
+                <span class="status-dot"></span>MARKET LIVE
+            </span>
+            <a href="https://t.me/+9sTDnUgQ6JlkYmM1" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.8rem;">JOIN HUB</a>
         </div>
-    </header>
+    </nav>
 
     <main>
         <section class="hero">
-            <div class="hero-text">
-                <div class="hero-tag">ALGORITHMIC TRADING INTELLIGENCE</div>
-                <h1>Trade with the <span>1% Percent.</span></h1>
-                <p class="hero-p">Experience the future of trading. Our institutional-grade algorithms analyze 5,000+ data points per second to deliver high-probability signals.</p>
-                
-                <div class="cta-box">
-                    <a href="https://t.me/+9sTDnUgQ6JlkYmM1" class="btn-main">
-                        <i class="fab fa-telegram-plane"></i> JOIN FREE TELEGRAM
+            <div class="hero-content">
+                <div class="hero-tag">Core Algorithm v4.2 Early Access</div>
+                <h1>Trade Like the <span>Institutions.</span></h1>
+                <p class="hero-desc">Stop guessing. Use the same order-flow intelligence and algorithmic precision used by the top 1% of traders globally.</p>
+                <div class="hero-btns">
+                    <a href="https://t.me/+9sTDnUgQ6JlkYmM1" class="btn btn-primary">
+                        <i class="fab fa-telegram-plane"></i> ACCESS FREE SIGNALS
                     </a>
                 </div>
             </div>
-
-            <div class="hero-visual">
-                <div class="dashboard-card">
-                    <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Trading Dashboard">
-                    <div class="signal-pop">
-                        <small>Last Signal</small>
-                        <span>BUY NIFTY +450.20</span>
-                    </div>
+            <div class="visual-container">
+                <div class="main-card">
+                    <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Trading Terminal">
                 </div>
             </div>
         </section>
 
-        <section class="features-section">
-            <div class="f-card">
-                <i class="fas fa-bolt"></i>
-                <h3>Real-Time Alerts</h3>
-                <p>Get instant push notifications the second our proprietary algorithm detects a high-value breakout.</p>
+        <section id="features">
+            <div class="section-title">
+                <h2>Engineered for Precision</h2>
+                <p>Built by math experts and veteran traders.</p>
             </div>
-            <div class="f-card">
-                <i class="fas fa-chart-pie"></i>
-                <h3>92% Accuracy</h3>
-                <p>Data-backed performance. We don't guess; we use math, volume, and institutional flow to win.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Smart AI Filtering</h3>
+                    <p>Our bot filters out "fake-outs" by analyzing liquidity clusters before a signal is ever sent.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Sub-Second Latency</h3>
+                    <p>Receive alerts on your device within 200ms of the algorithmic trigger. Speed is everything.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-halved"></i>
+                    <h3>Risk Management</h3>
+                    <p>Every signal includes precise Entry, Stop Loss, and multiple Take Profit targets.</p>
+                </div>
             </div>
-            <div class="f-card">
-                <i class="fas fa-users"></i>
-                <h3>Elite Community</h3>
-                <p>Join over 10,000 professional traders sharing insights and dominating the market daily.</p>
+        </section>
+
+        <section>
+            <div class="premium-box">
+                <h2>Burn the Markets.</h2>
+                <p>Join 15,000+ traders receiving daily institutional analysis.</p>
+                <a href="https://t.me/+9sTDnUgQ6JlkYmM1" class="btn btn-white">GET STARTED NOW</a>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="logo">
-            <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Logo">
-            STOCK BURNER
+        <div class="footer-brand">
+            <div class="logo">
+                <img src="https://mahakalx.sbs/wp-content/uploads/2026/02/sttoccc.jpg" alt="Logo">
+                STOCK BURNER
+            </div>
+            <p>Advanced algorithmic trading intelligence for modern retail investors.</p>
         </div>
-        <p style="color: var(--text-dim); font-size: 0.8rem;">© 2026 Stock Burner. All Rights Reserved.</p>
-        <a href="https://t.me/+TRlJl628l-FkMWE9" class="nexgrow-link">
-            Powered by <strong>Nexgroww Agency</strong>
-        </a>
+        <div class="footer-links">
+            <h4>Intelligence</h4>
+            <a href="#">Market Analysis</a>
+            <a href="#">Strategy Guide</a>
+            <a href="#">Success Stories</a>
+        </div>
+        <div class="footer-links">
+            <h4>Support</h4>
+            <a href="https://t.me/+9sTDnUgQ6JlkYmM1">Telegram</a>
+            <a href="#">Contact Support</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="copyright">
+            © 2026 STOCK BURNER. Powered by <a href="#" style="color: #fff; text-decoration: none;"><strong>Nexgroww Agency</strong></a>
+        </div>
     </footer>
 
 </body>
