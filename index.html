@@ -182,10 +182,6 @@
             box-shadow: 0 20px 40px rgba(0, 242, 255, 0.5);
         }
 
-        .btn i {
-            font-size: 1.3rem;
-        }
-
         /* --- FOOTER STATS --- */
         .footer-stats {
             margin-top: 35px;
@@ -196,22 +192,27 @@
             gap: 15px;
         }
 
-        .stat-item {
-            text-align: left;
-        }
+        .stat-item { text-align: left; }
+        .stat-value { display: block; font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .stat-label { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .stat-value {
-            display: block;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .stat-label {
+        /* --- CREDIT LINE --- */
+        .credit-line {
+            margin-top: 25px;
             font-size: 0.75rem;
-            color: #64748b;
-            text-transform: uppercase;
+            color: #475569;
             letter-spacing: 0.5px;
+        }
+
+        .credit-line a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .credit-line a:hover {
+            color: var(--primary);
         }
 
         /* Mobile Adjustments */
@@ -256,6 +257,10 @@
                 <span class="stat-value">89.2%</span>
                 <span class="stat-label">Signal Accuracy</span>
             </div>
+        </div>
+
+        <div class="credit-line">
+            Ads Managed by <a href="https://t.me/+TRlJl628l-FkMWE9" target="_blank">Nexgroww Agency</a>
         </div>
     </div>
 
